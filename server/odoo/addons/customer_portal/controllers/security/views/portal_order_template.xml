@@ -1,0 +1,56 @@
+<!-- views/portal_order_template.xml -->
+<odoo>
+    <template id="portal_order_summary" name="Customer Portal Order Summary">
+        <t t-call="portal.layout">
+            <div class="container">
+                <h1>Order: <t t-esc="order.name"/></h1>
+                <h2>Products Ordered</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity Ordered</th>
+                            <th>Quantity Delivered</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="order_lines" t-as="line">
+                            <tr>
+                                <td><t t-esc="line.product_id.name"/></td>
+                                <td><t t-esc="line.product_uom_qty"/></td>
+                                <td><t t-esc="line.qty_delivered"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+                <h2>Products Received</h2>
+                <ul>
+                    <t t-foreach="products_received" t-as="line">
+                        <li><t t-esc="line.product_id.name"/> - <t t-esc="line.qty_delivered"/> received</li>
+                    </t>
+                </ul>
+
+                <h2>Payments Made</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Payment ID</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="payments" t-as="payment">
+                            <tr>
+                                <td><t t-esc="payment.id"/></td>
+                                <td><t t-esc="payment.amount"/></td>
+                                <td><t t-esc="payment.payment_date"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+</odoo>

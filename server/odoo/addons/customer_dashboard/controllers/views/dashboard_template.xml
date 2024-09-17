@@ -1,0 +1,33 @@
+<odoo>
+    <template id="customer_dashboard_template" inherit_id="web.webclient_bootstrap">
+        <xpath expr="//div[@class='o_web_client']" position="before">
+            <div class="customer_dashboard">
+                <t t-call="customer_dashboard.dashboard_component"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>
+<template id="dashboard_component" name="Customer Dashboard">
+    <div class="dashboard">
+        <h2>Upcoming Deliveries</h2>
+        <ul>
+            <t t-foreach="state.deliveries" t-as="delivery">
+                <li>
+                    <t t-esc="delivery.name"/> - <t t-esc="delivery.date"/>
+                </li>
+            </t>
+        </ul>
+
+        <h2>Daily Payments</h2>
+        <div>
+            <canvas id="paymentChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+</template>
+<odoo>
+    <template id="assets_backend" name="customer_dashboard assets" inherit_id="web.assets_backend" priority="10">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        </xpath>
+    </template>
+</odoo>
